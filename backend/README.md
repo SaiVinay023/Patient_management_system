@@ -1,113 +1,106 @@
-# 🚀 Oxyera Async Interview Challenge
-
-Hi! 👋 Welcome to the Oxyera async technical challenge. This test will help us evaluate your independence, code quality, organization, and technical decisions without ambiguity, so you can focus on delivering your best work.
+# Oxyera Async Technical Challenge - Backend Setup & Implementation
 
 ---
 
-## 🎯 The Challenge
+## 1. Dockerfile for NestJS Backend
 
-### 📝 Description
+```dockerfile
+# Use official Node.js LTS version as base image
+FROM node:18-alpine
 
-In this async challenge, you will build a full-stack mini-app to manage patients, medications, and their treatment assignments for a digital health workflow.
+# Set working directory inside container
+WORKDIR /usr/src/app
 
-You will implement CRUD APIs using NestJS with a SQLite database (already configured) and a minimal Next.js frontend to interact with these APIs. A patient can have multiple medication assignments, and you will implement logic to calculate the remaining days of each treatment automatically.
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-The goal is to evaluate your ability to:
+# Install dependencies
+RUN npm install --production
 
-- Deliver clear, scalable, maintainable code.
+# Copy all source files
+COPY . .
 
-- Handle clean API design and testing.
+# Build the project
+RUN npm run build
 
-- Build a simple, functional UI connected to your backend.
+# Expose port 8080 for the backend server
+EXPOSE 8080
 
-- Manage your workflow independently with clear commits.
+# Start the server in production mode
+CMD ["node", "dist/main.js"]
 
-This test simulates real work at Oxyera: you will receive a task, execute it end-to-end, and submit it for review, demonstrating your ownership and technical skills without requiring continuous oversight.
 
-### ✅ What will you implement 
+Backend Architecture & Implementation
+Overview
+This backend is built using NestJS, a progressive Node.js framework leveraging TypeScript, decorators, and modular architecture to build scalable and maintainable server-side applications.
 
-✅ **Backend (NestJS, runs on port **`8080`**)**
+The app provides CRUD APIs for managing Patients, Medications, and their Treatment Assignments stored in a SQLite database.
 
-- CRUD endpoints for:
-  - `Patient` (name, date of birth)
-  - `Medication` (name, dosage, frequency)
-  - `Assignment` (assign a medication to a patient with a start date and number of days)
-- **A patient can have multiple medication assignments**.
-- Endpoint to calculate and return **remaining days of treatment** for each assignment (based on start date + days - today).
-- Endpoints should:
-  - Return clear, structured JSON.
-  - Validate input (e.g., required fields, valid dates).
-  - Return appropriate HTTP status codes.
-  - Be covered with at least **one unit test for calculation logic**.
+Folder Structure
+cpp
+Copy
+Edit
+src/
+ ├─ patient/
+ │   ├─ dto/
+ │   ├─ entities/
+ │   ├─ patient.controller.ts
+ │   ├─ patient.service.ts
+ │   ├─ patient.module.ts
+ ├─ medication/
+ │   ├─ dto/
+ │   ├─ entities/
+ │   ├─ medication.controller.ts
+ │   ├─ medication.service.ts
+ │   ├─ medication.module.ts
+ ├─ assignment/
+ │   ├─ dto/
+ │   ├─ entities/
+ │   ├─ assignment.controller.ts
+ │   ├─ assignment.service.ts
+ │   ├─ assignment.module.ts
+ ├─ common/
+ │   ├─ filters/
+ │   ├─ pipes/
+ │   ├─ guards/
+ ├─ database/
+ │   └─ database.sqlite
+ ├─ app.module.ts
+ ├─ main.ts
+Key Technical Decisions
+NestJS: for modularity, decorators, and scalable project structure.
 
-✅ **Frontend (Next.js, runs on port **`3000`**)**
+SQLite: lightweight file-based DB, perfect for this challenge.
 
-- Multiple pages with Tailwind for styling.
-- Features:
-  - List patients with their assignments and remaining treatment days.
-  - Forms to create:
-    - Patients
-    - Medications
-    - Assign medications to patients.
-- Display **remaining treatment days clearly per assignment**.
-- Use a **global constant for backend URL** for clarity.
+TypeScript: ensures type safety and better developer experience.
 
-✅ Use the **SQLite DB already configured in **``.
+DTOs & Validation: using class-validator and class-transformer with NestJS ValidationPipe for input validation.
 
-✅ Commit clearly and progressively, showing your reasoning in your commit messages.
+Swagger: auto-generated API docs for easier frontend integration and testing.
 
-✅ Use **TypeScript** everywhere.
+REST API Design: clear, consistent endpoints with proper HTTP status codes and JSON responses.
 
-✅ Structure your code cleanly to reflect scalability.
+Testing: unit tests especially for treatment days calculation logic.
 
----
+No ORM (optional): direct SQLite or TypeORM usage possible.
 
-## ⚡ What We’re Evaluating
-
-- Clear and scalable folder structure.
-- Proper API design and HTTP handling.
-- Input validation and error handling.
-- Consistent, readable code.
-- Use of TypeScript types for safety.
-- Test quality and coverage of core logic.
-- Ability to deliver a working feature with clean commits.
-- UI clarity and correct functional connection with your backend.
-
----
-
-## 🚀 Running the Project
-
-**Backend:**
-
-```bash
+How to Run Locally
+bash
+Copy
+Edit
 cd backend
 npm install
 npm run start:dev
-```
+API accessible at http://localhost:8080
 
-Access on `http://localhost:8080`.
+Swagger docs at http://localhost:8080/api
 
-**Frontend:**
+Future Improvements
+Add authentication and role-based access control.
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+Use a more robust production DB like PostgreSQL.
 
-Access on `http://localhost:3000`.
+Integration testing covering API flows.
 
-The SQLite database is located at `backend/database.sqlite`.
-
----
-
-## 📩 Submission
-
-✅ Complete by one week after you recieved the assignment. 
-
-✅ Push to your your personal forked repo. 
-
-✅ Email your repo link to [dev@oxyera.com](mailto\:dev@oxyera.com).
-
-Thank you for your interest in Oxyera. We look forward to reviewing your structured, clear, and working solution!
+Full Docker Compose setup for backend + frontend + DB.
 
