@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { AssignmentEntity } from '../../assignment/entities/assignment.entity';
+import { Assignment } from '../../assignment/entities/assignment.entity';
 
 @Entity('medications')
-export class MedicationEntity {
+export class Medication {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,8 +15,8 @@ export class MedicationEntity {
   @Column()
   frequency: string;
 
-  @OneToMany(() => AssignmentEntity, (assignment) => assignment.medication, {
+  @OneToMany(() => Assignment, (assignment) => assignment.medication, {
     cascade: true,
   })
-  assignments: AssignmentEntity[];
+  assignments: Assignment[];
 }

@@ -1,8 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { AssignmentEntity } from '../../assignment/entities/assignment.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Assignment } from '../../assignment/entities/assignment.entity';
 
 @Entity('patients')
-export class PatientEntity {
+export class Patient {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,8 +19,14 @@ export class PatientEntity {
   @Column({ name: 'date_of_birth', type: 'date' })
   dateOfBirth: string;
 
-  @OneToMany(() => AssignmentEntity, (assignment) => assignment.patient, {
+  @OneToMany(() => Assignment, (assignment) => assignment.patient, {
     cascade: true,
   })
-  assignments: AssignmentEntity[];
+  assignments: Assignment[];
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

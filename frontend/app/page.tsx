@@ -11,10 +11,18 @@ export default function Home() {
   const [name, setName] = useState('');
 
   const fetchSamples = async () => {
-    const res = await fetch(`${API}/sample`);
-    const data = await res.json();
+  const res = await fetch(`${API}/sample`);
+  const data = await res.json();
+  console.log('Fetched samples:', data); // 👈 check the structure
+
+  if (Array.isArray(data)) {
     setSamples(data);
-  };
+  } else {
+    console.error('Unexpected data format:', data);
+    setSamples([]); // fallback to empty array
+  }
+};
+
 
   const createSample = async () => {
     if (!name.trim()) return;

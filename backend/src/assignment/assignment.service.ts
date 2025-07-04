@@ -42,7 +42,7 @@ export class AssignmentService {
   }
 
   // Calculate remaining days
-  calculateRemainingDays(startDate: string, numberOfDays: number): number {
+ /* calculateRemainingDays(startDate: string, numberOfDays: number): number {
     const start = new Date(startDate);
     const end = new Date(start);
     end.setDate(end.getDate() + numberOfDays);
@@ -52,7 +52,17 @@ export class AssignmentService {
 
     const diffTime = end.getTime() - today.getTime();
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
+  } */
+
+    calculateRemainingDays(startDate: string, numberOfDays: number): number {
+  const start = new Date(startDate);
+  const now = new Date();
+  const end = new Date(start);
+  end.setDate(start.getDate() + numberOfDays);
+  const remainingMs = end.getTime() - now.getTime();
+  return Math.max(Math.ceil(remainingMs / (1000 * 60 * 60 * 24)), 0);
+}
+
 
   async findAllWithRemainingDays() {
     const assignments = await this.findAll();
@@ -66,3 +76,5 @@ export class AssignmentService {
     });
   }
 }
+// This service provides methods to create, read, update, and delete assignments.
+// It uses TypeORM's Repository to interact with the database.

@@ -11,6 +11,14 @@ import { AssignmentModule } from './assignment/assignment.module';
       database: 'database.sqlite',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+        logging: true, // good for dev
+      // logging: false, // good for production
+      // migrationsRun: true, // uncomment if you want to run migrations automatically
+      // migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+      // cli: {
+      //   migrationsDir: 'src/migrations',
+      // },
+      // autoLoadEntities: true, // uncomment if you want to automatically load entities
     }),
     PatientModule,
     MedicationModule,

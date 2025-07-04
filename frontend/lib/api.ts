@@ -1,13 +1,58 @@
-// lib/api.ts
-export const BACKEND_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080';
 
-export async function fetchPatients() {
-  const res = await fetch(`${BACKEND_URL}/patients`);
-  if (!res.ok) throw new Error("Failed to fetch patients");
+// Patients
+export async function getPatients() {
+  const res = await fetch(`${API_URL}/patients`);
+  if (!res.ok) throw new Error('Failed to fetch patients');
   return res.json();
 }
-export async function fetchMedications() {
-  const res = await fetch(`${BACKEND_URL}/medications`);
-  if (!res.ok) throw new Error("Failed to fetch medications");
+
+export async function createPatient(data: { name: string }) {
+  const res = await fetch(`${API_URL}/patients`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
   return res.json();
-}   
+}
+
+// Medications
+export async function getMedications() {
+  const res = await fetch(`${API_URL}/medications`);
+  if (!res.ok) throw new Error('Failed to fetch medications');
+  return res.json();
+}
+
+export async function createMedication(data: { name: string }) {
+  const res = await fetch(`${API_URL}/medications`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+// Assignments
+export async function getAssignments() {
+  const res = await fetch(`${API_URL}/assignments`);
+  if (!res.ok) throw new Error('Failed to fetch assignments');
+  return res.json();
+}
+
+export async function createAssignment(data: { patientId: number; medicationId: number }) {
+  const res = await fetch(`${API_URL}/assignments`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+
+// Add other CRUD APIs if needed
+export {
+  createPatient,
+  createMedication,
+  createAssignment,
+  // ...other functions
+};

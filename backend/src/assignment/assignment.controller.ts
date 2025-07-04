@@ -31,4 +31,23 @@ export class AssignmentController {
   remove(@Param('id') id: string) {
     return this.assignmentService.remove(+id);
   }
+  // assignments.controller.ts
+/*@Get(':id/remaining-days')
+getRemainingDays(@Param('id') id: string) {
+  return this.assignmentService.calculateRemainingDays(+id);
+} */
+
+  @Get(':id/remaining-days')
+async getRemainingDays(@Param('id') id: string) {
+  const assignment = await this.assignmentService.findOne(+id);
+  return {
+    remainingDays: this.assignmentService.calculateRemainingDays(
+      assignment.startDate,
+      assignment.numberOfDays,
+    ),
+  };
 }
+
+}
+// This controller handles HTTP requests for assignments.
+// It uses the AssignmentService to perform CRUD operations on assignments.

@@ -13,3 +13,5 @@ export class CreateAssignmentDto {
   @IsPositive()
   numberOfDays: number;
 }
+// This DTO is used to create a new assignment of a medication to a patient.
+// It includes the patient ID, medication ID, start date, and number of days for the

@@ -40,3 +40,5 @@ export class PatientService {
     await this.patientRepository.remove(patient);
   }
 }
+// This service provides methods to create, read, update, and delete patients.
+// It uses TypeORM's Repository to interact with the database.
