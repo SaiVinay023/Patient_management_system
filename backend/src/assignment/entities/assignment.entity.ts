@@ -20,18 +20,12 @@ export class Assignment {
   @JoinColumn({ name: 'patientId' })
   patient: Patient;
 
-  @Column()
-  patientId: number;
-
   @ManyToOne(() => Medication, (medication) => medication.assignments, {
     eager: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'medicationId' })
   medication: Medication;
-
-  @Column()
-  medicationId: number;
 
   @Column({ type: 'date' })
   startDate: string;

@@ -22,30 +22,23 @@ export function useMedication(id: number | string) {
 export function useCreateMedication() {
   const queryClient = useQueryClient();
 
-  return useMutation(api.createMedication, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['medications']);
-    },
-  });
-}
-/*export function useCreateMedication() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: api.createMedication,
     onSuccess: () => {
       queryClient.invalidateQueries(['medications']);
     },
   });
-} */
+}
 
 // Update medication
 export function useUpdateMedication() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({ id, data }: { id: number | string; data: { name: string } }) =>
       api.updateMedication(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['medications']);
+      queryClient.invalidateQueries(["medications"]);
     },
   });
 }

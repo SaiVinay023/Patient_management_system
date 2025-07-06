@@ -5,12 +5,13 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import AssignmentList from '@/components/assignments/AssignmentList';
 import AssignmentForm from '@/components/assignments/AssignmentForm';
 import { Assignment } from '@/types';
-import { useAssignments, useDeleteAssignment } from '@/hooks/useAssignments';
+import { useAssignments, useDeleteAssignment, useUpdateAssignment } from '@/hooks/useAssignments';
 import { useState } from 'react';
 
 export default function AssignmentsPage() {
   const { data: assignments = [], isLoading } = useAssignments();
-  const { mutate: deleteAssignment } = useDeleteAssignment();
+  const { mutateAsync: deleteAssignment } = useDeleteAssignment();
+  const { mutateAsync: updateAssignment } = useUpdateAssignment();
   const [editData, setEditData] = useState<Assignment | undefined>(undefined);
 
   if (isLoading) return <p>Loading...</p>;
@@ -25,10 +26,10 @@ export default function AssignmentsPage() {
       />
 
       <AssignmentList
-        assignments={assignments}
-        onEdit={setEditData}
-        onDelete={(id) => deleteAssignment(id)}
-      />
+  assignments={assignments || []}
+  onDelete={(id) => deleteAssignment(id)}
+  onEdit={(a) => updateAssignment({ id: a.id, data: a })}
+/>
     </Layout>
   );
 }

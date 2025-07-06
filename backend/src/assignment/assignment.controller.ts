@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/commo
 import { AssignmentService } from './assignment.service';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
-import { Assignment } from './entities/assignment.entity'; // Assuming you have this
+import { Assignment } from './entities/assignment.entity';
+
 
 @Controller('assignments')
 export class AssignmentController {

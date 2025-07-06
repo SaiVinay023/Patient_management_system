@@ -54,7 +54,7 @@ export class AssignmentService {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   } */
 
-    calculateRemainingDays(startDate: string, numberOfDays: number): number {
+  calculateRemainingDays(startDate: string, numberOfDays: number): number {
   const start = new Date(startDate);
   const now = new Date();
   const end = new Date(start);

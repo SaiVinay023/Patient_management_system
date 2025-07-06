@@ -18,24 +18,23 @@ export default function PatientList({ patients }: { patients: Patient[] }) {
     setEditDOB(p.dateOfBirth ?? '');
   };
 
-  const handleSave = () => {
-    if (!editName.trim()) return;
+ const handleSave = () => {
+  if (!editName.trim() || editingId === null) return;
 
-    updatePatient(
-      {
-        id: editingId!,
-        name: editName.trim(),
-        dateOfBirth: editDOB || undefined,
-      },
-      {
-        onSuccess: () => {
-          setEditingId(null);
-          setEditName('');
-          setEditDOB('');
-        },
-      }
-    );
-  };
+  updatePatient({
+    id: editingId,
+    data: {
+      name: editName.trim(),
+      dateOfBirth: editDOB || undefined,
+    },
+  });
+
+  // Reset the form optimistically (you can wait for `onSuccess` if needed)
+  setEditingId(null);
+  setEditName('');
+  setEditDOB('');
+};
+
 
   return (
     <ul className="space-y-2">

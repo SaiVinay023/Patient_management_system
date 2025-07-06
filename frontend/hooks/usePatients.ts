@@ -23,11 +23,13 @@ export function usePatient(id: number | string) {
 export function useCreatePatient() {
   const queryClient = useQueryClient();
 
-  return useMutation(api.createPatient, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['patients']);
-    },
-  });
+  return useMutation({
+  mutationFn: api.createPatient,
+  onSuccess: () => {
+    queryClient.invalidateQueries(['patients']);
+  },
+});
+
 }
 
 
@@ -35,16 +37,15 @@ export function useCreatePatient() {
 export function useUpdatePatient() {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    ({ id, data }: { id: number | string; data: { name: string; dateOfBirth?: string } }) =>
-      api.updatePatient(id, data),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['patients']);
-      },
-    }
-  );
+  return useMutation({
+    mutationFn: ({ id, data }) => api.updatePatient(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['patients']);
+    },
+  });
 }
+
+
 
 // Delete patient
 export function useDeletePatient() {

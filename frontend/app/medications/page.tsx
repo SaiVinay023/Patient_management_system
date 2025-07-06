@@ -14,8 +14,9 @@ export default function MedicationsPage() {
 
   return (
     <div>
-      <Breadcrumb paths={[{ label: "Medications", href: "/medications" }]} />
+      
       <Layout title="Medications">
+        <Breadcrumb paths={[{ label: "Medications", href: "/medications" }]} />
         <MedicationForm />
         <MedicationList medications={medications || []} />
       </Layout>

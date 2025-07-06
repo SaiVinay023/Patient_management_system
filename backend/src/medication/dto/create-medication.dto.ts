@@ -6,10 +6,10 @@ export class CreateMedicationDto {
   name: string;
 
   @IsOptional()
-  @IsString() // ❌ This will still trigger if the field is not provided
+  @IsString() 
   dosage?: string;
 
   @IsOptional()
-  @IsString() // ❌ Same issue as above
+  @IsString() 
   frequency?: string;
 }

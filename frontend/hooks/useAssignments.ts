@@ -7,8 +7,12 @@ export function useAssignments() {
   return useQuery<Assignment[], Error>({
     queryKey: ['assignments'],
     queryFn: api.getAssignments,
+    onSuccess: (data) => {
+      console.log('Assignments data:', data);  // Check if remainingDays exists
+    },
   });
 }
+
 
 // Fetch one assignment by ID
 export function useAssignment(id: number | string) {

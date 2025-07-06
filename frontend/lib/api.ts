@@ -100,7 +100,7 @@ export async function getAssignmentById(id: string | number) {
   return res.json();
 }
 
-export async function createAssignment(data: { patientId: number; medicationId: number }) {
+export async function createAssignment(data: { patientId: number; medicationId: number; startDate?: string; numberOfDays?: number }) {
   const res = await fetch(`${API_URL}/assignments`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -18,5 +18,7 @@ export interface Assignment {
   medicationId: number;
   startDate?: string;
   numberOfDays?: number;
-  remainingDays?: number;
+  remainingDays?: number;  // <-- add this optional prop
+  medication?: { name: string };  // if you use this nested object
+  patient?: { name: string };
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { useDeleteMedication, useUpdateMedication } from "@/hooks/useMedications";
@@ -8,24 +8,46 @@ export default function MedicationList({ medications }: { medications: Medicatio
   const { mutateAsync: deleteMedication } = useDeleteMedication();
   const { mutateAsync: updateMedication } = useUpdateMedication();
 
-  // Track the medication id being edited and its temp name
-  const [editingId, setEditingId] = useState<number | string | null>(null);
-  const [editName, setEditName] = useState("");
+  // Track the medication being edited and its temporary values
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editFields, setEditFields] = useState<{ name: string; dosage: string; frequency: string }>({
+    name: "",
+    dosage: "",
+    frequency: "",
+  });
 
   const startEditing = (med: Medication) => {
     setEditingId(med.id);
-    setEditName(med.name);
+    setEditFields({
+      name: med.name,
+      dosage: med.dosage,
+      frequency: med.frequency,
+    });
   };
 
   const cancelEditing = () => {
     setEditingId(null);
-    setEditName("");
+    setEditFields({ name: "", dosage: "", frequency: "" });
   };
 
   const saveEdit = async () => {
-    if (editingId !== null && editName.trim() !== "") {
+    const { name, dosage, frequency } = editFields;
+
+    if (!name.trim() || !dosage.trim() || !frequency.trim()) {
+      alert("Please fill in all fields: Name, Dosage, and Frequency.");
+      return;
+    }
+
+    if (editingId !== null) {
       try {
-        await updateMedication({ id: editingId, data: { name: editName.trim() } });
+        await updateMedication({
+          id: editingId,
+          data: {
+            name: name.trim(),
+            dosage: dosage.trim(),
+            frequency: frequency.trim(),
+          },
+        });
         cancelEditing();
       } catch (error) {
         console.error("Failed to update medication:", error);
@@ -36,14 +58,29 @@ export default function MedicationList({ medications }: { medications: Medicatio
   return (
     <ul className="space-y-2">
       {medications.map((m) => (
-        <li key={m.id} className="border p-2 flex justify-between items-center">
+        <li key={m.id} className="border p-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
           {editingId === m.id ? (
             <>
               <input
                 type="text"
-                value={editName}
-                onChange={(e) => setEditName(e.target.value)}
-                className="border px-2 py-1 rounded"
+                value={editFields.name}
+                onChange={(e) => setEditFields({ ...editFields, name: e.target.value })}
+                className="border px-2 py-1 rounded mb-1 md:mb-0 md:mr-2"
+                placeholder="Medication Name"
+              />
+              <input
+                type="text"
+                value={editFields.dosage}
+                onChange={(e) => setEditFields({ ...editFields, dosage: e.target.value })}
+                className="border px-2 py-1 rounded mb-1 md:mb-0 md:mr-2"
+                placeholder="Dosage"
+              />
+              <input
+                type="text"
+                value={editFields.frequency}
+                onChange={(e) => setEditFields({ ...editFields, frequency: e.target.value })}
+                className="border px-2 py-1 rounded mb-1 md:mb-0 md:mr-2"
+                placeholder="Frequency"
               />
               <div className="space-x-2">
                 <button
@@ -62,8 +99,11 @@ export default function MedicationList({ medications }: { medications: Medicatio
             </>
           ) : (
             <>
-              <span>{m.name}</span>
-              <div className="space-x-4">
+              <span className="font-semibold">{m.name}</span>
+              <span className="text-sm text-gray-600">
+                Dosage: {m.dosage} | Frequency: {m.frequency}
+              </span>
+              <div className="space-x-4 mt-1 md:mt-0">
                 <button
                   onClick={() => startEditing(m)}
                   className="text-blue-600 hover:underline"

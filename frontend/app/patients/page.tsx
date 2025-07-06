@@ -10,8 +10,9 @@ export default function PatientsPage() {
 
   return (
     <div>
-      <Breadcrumb paths={[{ label: 'Patients', href: '/patients' }]} />
+      
       <Layout title="Patients">
+        <Breadcrumb paths={[{ label: 'Patients', href: '/patients' }]} />
         <PatientForm />
         {isLoading ? (
           <p>Loading...</p>

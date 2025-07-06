@@ -11,16 +11,19 @@ export default function MedicationForm() {
   const { mutateAsync, isPending } = useCreateMedication();
 
   const handleSubmit = async () => {
-    if (!name.trim()) return;
+    // Validate required fields
+    if (!name.trim() || !dosage.trim() || !frequency.trim()) {
+      alert("Please fill in all fields: Name, Dosage, and Frequency.");
+      return;
+    }
 
     try {
       await mutateAsync({
         name: name.trim(),
-        dosage: dosage.trim() || undefined,
-        frequency: frequency.trim() || undefined,
+        dosage: dosage.trim(),
+        frequency: frequency.trim(),
       });
 
-      // Reset form
       setName("");
       setDosage("");
       setFrequency("");
@@ -42,13 +45,15 @@ export default function MedicationForm() {
         className="border p-2 rounded"
         value={dosage}
         onChange={(e) => setDosage(e.target.value)}
-        placeholder="Dosage (optional)"
+        placeholder="Dosage (required)"
+        required
       />
       <input
         className="border p-2 rounded"
         value={frequency}
         onChange={(e) => setFrequency(e.target.value)}
-        placeholder="Frequency (optional)"
+        placeholder="Frequency (required)"
+        required
       />
       <button
         onClick={handleSubmit}
