@@ -1,4 +1,4 @@
-import { IsInt, IsDateString, IsPositive } from 'class-validator';
+import { IsInt, IsDateString, IsPositive, IsOptional } from 'class-validator';
 
 export class CreateAssignmentDto {
   @IsInt()

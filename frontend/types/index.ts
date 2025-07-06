@@ -16,7 +16,7 @@ export interface Assignment {
   id: number;
   patientId: number;
   medicationId: number;
-  startDate: string;
-  days: number;
-  remainingDays: number;
+  startDate?: string;
+  numberOfDays?: number;
+  remainingDays?: number;
 }

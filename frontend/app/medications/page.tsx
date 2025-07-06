@@ -1,34 +1,24 @@
-// ✅ app/medications/page.tsx
+"use client";
 
-'use client';
-
-import { useEffect, useState } from 'react';
-import { getMedications } from '@/lib/api';
-import MedicationForm from '@/components/MedicationForm';
+import Layout from "@/components/shared/Layout";
+import MedicationForm from "@/components/medications/MedicationForm";
+import MedicationList from "@/components/medications/MedicationList";
+import Breadcrumb from "@/components/shared/Breadcrumb";
+import { useMedications } from "@/hooks/useMedications";
 
 export default function MedicationsPage() {
-  const [medications, setMedications] = useState([]);
+  const { data: medications, isLoading, error } = useMedications();
 
-  const loadMedications = async () => {
-    const data = await getMedications();
-    setMedications(data);
-  };
-
-  useEffect(() => {
-    loadMedications();
-  }, []);
+  if (isLoading) return <p className="p-4">Loading medications...</p>;
+  if (error) return <p className="p-4 text-red-600">Error loading medications.</p>;
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Medications</h1>
-      <MedicationForm onSuccess={loadMedications} />
-      <ul className="space-y-2">
-        {medications.map((m: any) => (
-          <li key={m.id} className="border p-2 rounded shadow">
-            {m.name}: {m.description}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <Breadcrumb paths={[{ label: "Medications", href: "/medications" }]} />
+      <Layout title="Medications">
+        <MedicationForm />
+        <MedicationList medications={medications || []} />
+      </Layout>
     </div>
   );
 }

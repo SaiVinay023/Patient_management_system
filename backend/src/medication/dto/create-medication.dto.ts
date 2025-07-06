@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateMedicationDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsString()
-  @IsNotEmpty()
-  dosage: string;
+  @IsOptional()
+  @IsString() // ❌ This will still trigger if the field is not provided
+  dosage?: string;
 
-  @IsString()
-  @IsNotEmpty()
-  frequency: string;
+  @IsOptional()
+  @IsString() // ❌ Same issue as above
+  frequency?: string;
 }
