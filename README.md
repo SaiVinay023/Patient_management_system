@@ -67,17 +67,37 @@ The frontend application will run on `http://localhost:3000`.
 
 ## 📁 Project Structure
 
+## 📁 Project Structure
+
 ```
 Patient_management_system/
-├── backend/
+├── backend/                 # NestJS API (patients, medications, assignments)
 │   ├── src/
-│   ├── database.sqlite
-│   └── package.json
-├── frontend/
+│   │   ├── assignments/     # Assignment module, service, controller, DTOs, entities
+│   │   ├── medications/     # Medication module, service, controller, DTOs, entities
+│   │   ├── patients/        # Patient module, service, controller, DTOs, entities
+│   │   ├── app.module.ts    # Root application module wiring all features
+│   │   └── main.ts          # Application bootstrap
+│   ├── test/                # Unit tests for core business logic
+│   ├── database.sqlite      # SQLite database file
+│   ├── ormconfig* / config  # ORM/database configuration (if present)
+│   ├── package.json         # Backend dependencies and scripts
+│   └── tsconfig*.json       # TypeScript configuration
+│
+├── frontend/                # Next.js frontend
 │   ├── src/
-│   ├── public/
-│   └── package.json
-└── README.md
+│   │   ├── app/ or pages/   # Application routes and page components
+│   │   ├── components/      # Reusable UI components (forms, lists, layout)
+│   │   ├── lib/ or utils/   # API clients, helpers, types
+│   │   └── styles/          # Global styles if not only Tailwind
+│   ├── public/              # Static assets
+│   ├── tailwind.config.js   # Tailwind CSS configuration
+│   ├── postcss.config.js    # PostCSS configuration
+│   ├── package.json         # Frontend dependencies and scripts
+│   └── tsconfig*.json       # TypeScript configuration
+│
+├── .gitignore               # Git ignore rules
+└── README.md                # Project documentation
 ```
 
 ## 🔑 Key Functionalities
