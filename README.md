@@ -1,83 +1,51 @@
-# 🚀 Oxyera Async Interview Challenge
+# 🏥 Patient Management System
 
-Hi! 👋 Welcome to the Oxyera async technical challenge. This test will help us evaluate your independence, code quality, organization, and technical decisions without ambiguity, so you can focus on delivering your best work.
+A full-stack web application for managing patients, medications, and treatment assignments. Built with modern technologies to demonstrate clean architecture, RESTful API design, and seamless frontend-backend integration.
 
----
+## 🎯 Overview
 
-## 🎯 The Challenge
+This application provides a comprehensive solution for managing digital health workflows, allowing healthcare providers to track patients, medications, and treatment schedules efficiently. The system automatically calculates remaining treatment days based on assignment data.
 
-### 📝 Description
+## ✨ Features
 
-In this async challenge, you will build a full-stack mini-app to manage patients, medications, and their treatment assignments for a digital health workflow.
+### Backend (NestJS)
+- **Patient Management**: Create, read, update, and delete patient records with name and date of birth
+- **Medication Management**: Manage medication catalog with name, dosage, and frequency information
+- **Treatment Assignments**: Assign medications to patients with start dates and treatment duration
+- **Automatic Calculations**: Real-time calculation of remaining treatment days for each assignment
+- **Data Validation**: Input validation with appropriate error handling and HTTP status codes
+- **Unit Testing**: Core business logic covered with unit tests
 
-You will implement CRUD APIs using NestJS with a SQLite database (already configured) and a minimal Next.js frontend to interact with these APIs. A patient can have multiple medication assignments, and you will implement logic to calculate the remaining days of each treatment automatically.
+### Frontend (Next.js)
+- **Patient Dashboard**: View all patients with their active medication assignments
+- **Treatment Tracking**: Display remaining treatment days for each assignment
+- **Interactive Forms**: Create and manage patients, medications, and assignments
+- **Responsive Design**: Styled with Tailwind CSS for a modern, mobile-friendly interface
+- **Type Safety**: Full TypeScript implementation across the application
 
-The goal is to evaluate your ability to:
-
-- Deliver clear, scalable, maintainable code.
-
-- Handle clean API design and testing.
-
-- Build a simple, functional UI connected to your backend.
-
-- Manage your workflow independently with clear commits.
-
-This test simulates real work at Oxyera: you will receive a task, execute it end-to-end, and submit it for review, demonstrating your ownership and technical skills without requiring continuous oversight.
-
-### ✅ What will you implement 
-
-✅ **Backend (NestJS, runs on port **`8080`**)**
-
-- CRUD endpoints for:
-  - `Patient` (name, date of birth)
-  - `Medication` (name, dosage, frequency)
-  - `Assignment` (assign a medication to a patient with a start date and number of days)
-- **A patient can have multiple medication assignments**.
-- Endpoint to calculate and return **remaining days of treatment** for each assignment (based on start date + days - today).
-- Endpoints should:
-  - Return clear, structured JSON.
-  - Validate input (e.g., required fields, valid dates).
-  - Return appropriate HTTP status codes.
-  - Be covered with at least **one unit test for calculation logic**.
-
-✅ **Frontend (Next.js, runs on port **`3000`**)**
-
-- Multiple pages with Tailwind for styling.
-- Features:
-  - List patients with their assignments and remaining treatment days.
-  - Forms to create:
-    - Patients
-    - Medications
-    - Assign medications to patients.
-- Display **remaining treatment days clearly per assignment**.
-- Use a **global constant for backend URL** for clarity.
-
-✅ Use the **SQLite DB already configured in** `/backend/database.sqlite`.
-
-✅ Commit clearly and progressively, showing your reasoning in your commit messages.
-
-✅ Use **TypeScript** everywhere.
-
-✅ Structure your code cleanly to reflect scalability.
-
----
-
-## ⚡ What We’re Evaluating
-
-- Clear and scalable folder structure.
-- Proper API design and HTTP handling.
-- Input validation and error handling.
-- Consistent, readable code.
-- Use of TypeScript types for safety.
-- Test quality and coverage of core logic.
-- Ability to deliver a working feature with clean commits.
-- UI clarity and correct functional connection with your backend.
-
----
-
-## 🚀 Running the Project
+## 🛠️ Tech Stack
 
 **Backend:**
+- NestJS
+- TypeScript
+- SQLite
+- TypeORM
+
+**Frontend:**
+- Next.js
+- TypeScript
+- Tailwind CSS
+- React
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+**Backend Setup:**
 
 ```bash
 cd backend
@@ -85,9 +53,9 @@ npm install
 npm run start:dev
 ```
 
-Access on `http://localhost:8080`.
+The backend server will run on `http://localhost:8080`.
 
-**Frontend:**
+**Frontend Setup:**
 
 ```bash
 cd frontend
@@ -95,19 +63,73 @@ npm install
 npm run dev
 ```
 
-Access on `http://localhost:3000`.
+The frontend application will run on `http://localhost:3000`.
 
-The SQLite database is located at `backend/database.sqlite`.
+## 📁 Project Structure
+
+```
+Patient_management_system/
+├── backend/
+│   ├── src/
+│   ├── database.sqlite
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+└── README.md
+```
+
+## 🔑 Key Functionalities
+
+### API Endpoints
+- Patient CRUD operations
+- Medication CRUD operations
+- Treatment assignment management
+- Remaining days calculation endpoint
+
+### Data Models
+- **Patient**: Stores patient information (name, date of birth)
+- **Medication**: Contains medication details (name, dosage, frequency)
+- **Assignment**: Links patients with medications, including start date and treatment duration
+
+### Business Logic
+- Patients can have multiple active medication assignments
+- Automatic calculation of remaining treatment days based on: `(start_date + duration) - current_date`
+- Real-time updates as dates progress
+
+## 🧪 Testing
+
+Run backend tests:
+
+```bash
+cd backend
+npm test
+```
+
+## 🔧 Configuration
+
+- Database: SQLite database located at `backend/database.sqlite`
+- Backend URL: Configured as a global constant in the frontend
+- Default ports: Backend (8080), Frontend (3000)
+
+## 📝 Development Approach
+
+- Clean, scalable folder structure
+- Type-safe TypeScript implementation
+- Comprehensive error handling and validation
+- RESTful API design principles
+- Progressive commits with clear messages
+- Component-based frontend architecture
+
+## 🤝 Contributing
+
+This is a portfolio project. Feel free to fork and modify for your own use.
+
+## 📄 License
+
+MIT License - feel free to use this project for learning and portfolio purposes.
 
 ---
 
-## 📩 Submission
-
-✅ Complete by one week after you recieved the assignment. 
-
-✅ Push to your your personal forked repo. 
-
-✅ Email your repo link to [dev@oxyera.com](mailto\:dev@oxyera.com).
-
-Thank you for your interest in Oxyera. We look forward to reviewing your structured, clear, and working solution!
-
+Built with ❤️ using NestJS and Next.js
